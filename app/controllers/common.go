@@ -8,10 +8,6 @@ import (
 	"runtime"
 	"strings"
 
-	//"github.com/rakd/sgxinfo/app/libs/csrf"
-
-	//"github.com/justinas/nosurf"
-
 	"gopkg.in/gin-gonic/gin.v1"
 )
 

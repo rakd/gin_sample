@@ -1,13 +1,13 @@
 {{define "partials/navbar"}}
-  
+
   <br/>
   <a href="/about">about</a>
 
     {{if .is_login}}
-      ( <a href="/user/logout">logout</a> )
+      ( <a href="/logout">logout</a> )
     {{else}}
-      <a href="/user/login">login</a> |
-      <a href="/user/register">signup</a>
+      <a href="/login">login</a> |
+      <a href="/register">signup</a>
     {{end}}
 
 {{end}}
