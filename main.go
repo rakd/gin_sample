@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"log"
 
+	"github.com/gin-contrib/sessions"
+
 	"github.com/gin-contrib/gzip"
 	"github.com/rakd/gin_sample/app/controllers"
 	"github.com/rakd/gin_sample/app/libs/ezgintemplate"
@@ -25,7 +27,9 @@ func main() {
 	router.StaticFile("/favicon.ico", "./assets/favicon.ico")
 	router.StaticFile("/robots.txt", "./assets/robots.txt")
 	router.Use(gin.Recovery())
-
+	// session
+	store := sessions.NewCookieStore([]byte("secret1233"))
+	router.Use(sessions.Sessions("mysession", store))
 	// templates
 	render := ezgintemplate.New()
 	render.TemplatesDir = "app/views/"
@@ -46,6 +50,7 @@ func main() {
 	router.HTMLRender = render.Init()
 
 	router.GET("/", controllers.AppIndex)
+	router.GET("/flash", controllers.FlashIndex)
 	router.NoRoute(controllers.NoRoute)
 	router.Run(":3000")
 }

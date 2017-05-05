@@ -11,18 +11,18 @@ I'm not specialist but tried to make some which are working as productions. I'd 
 This repo has some branches. would like to keep some branches simple to explain.
 
 - master => active repo with all stuff.
-- [x] hello => almost pure gin with assets/glide.
-- [x] gzip
-- [x] templates => using ezgintemplate, it's supporting switching layouts.
-- [ ] flash => sample of flash messages with templates.
-- [ ] csrf => supporting csrf, with flash/templates.
-- [ ] oauth/admin => google oauth sample for admin pages.
-- [ ] cors => cors/JWT sample for APIs.
-- [ ] login => login/logout sample, using gorm (db library), with csrf/templates/flash.
-- [ ] json => parse json data and showing.
-- [ ] docker => docker sample with alpine.
-- [ ] cache => using memcached for json. it's including docker-compose sample and json/Unmarshall.
-- [ ] deploy => deply sample to ElasticBeanstalk with CircleCI.
+- [x] 01_hello => almost pure gin with assets/glide.
+- [x] 02_gzip
+- [x] 03_templates => using ezgintemplate, it's supporting switching layouts.
+- [ ] 04_flash => sample of flash messages with templates.
+- [ ] 05_csrf => supporting csrf, with flash/templates.
+- [ ] 06_oauth/admin => google oauth sample for admin pages.
+- [ ] 07_cors => cors/JWT sample for APIs.
+- [ ] 08_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
+- [ ] 09_json => parse json data and showing.
+- [ ] 10_docker => docker sample with alpine.
+- [ ] 11_cache => using memcached for json. it's including docker-compose sample and json/Unmarshall.
+- [ ] 12_deploy => deply sample to ElasticBeanstalk with CircleCI.
 
 -----
 
@@ -111,7 +111,7 @@ go get github.com/pilu/fresh
 
 -----
 
-## Hello Gin ( hello branch )
+## Hello Gin ( 01_hello branch )
 
 It's just `Hello Gin`. please have a look at the branch (hello).
 
@@ -160,7 +160,7 @@ you can just use `fresh`, then you can access http://localhost:3000/
 
 ----
 
-## support gzip ( gzip branch )
+## support gzip ( 02_gzip branch )
 
 ### import gzip & setting
 
@@ -174,7 +174,7 @@ You can check size of http://localhost:3000/assets/css/bootstrap/4.0.0-alpha.6/c
 
 -----
 
-## swithcing layouts ( templates branch )
+## swithcing layouts ( 03_templates branch )
 
 ### import ezgintemplate
 
@@ -217,7 +217,7 @@ you can see
 
 - app/views/app/index_amp.tmpl
 
-then you can see AMP page on http://localhost:3000/?amp=1 
+ then you can see AMP page on http://localhost:3000/?amp=1
 
 My ezgintemplate regard XXX_amp.tmp as tempalte for AMP.
 
@@ -243,8 +243,109 @@ If no template, you can see 404 error.
 
 -----
 
-## flash messages ( flash branch )
+## flash messages ( 04_flash_message branch )
 
+### main.go
+```main.go
+"github.com/gin-contrib/sessions"
+```
+
+```main.go
+// session
+store := sessions.NewCookieStore([]byte("secret1233"))
+router.Use(sessions.Sessions("mysession", store))
+```
+
+### app/contorlers/common.go
+
+```app/contorlers/common.go
+"github.com/gin-contrib/sessions"
+```
+```app/contorlers/common.go
+// setFlash
+data["flash_error"] = GetFlashError(c)
+data["flash_warning"] = GetFlashWarning(c)
+data["flash_info"] = GetFlashInfo(c)
+data["flash_success"] = GetFlashSuccess(c)
+```
+
+```app/contorlers/common.go
+const flashKeyInfo = "flash_key_info"
+const flashKeyError = "flash_key_Error"
+const flashKeyWarning = "flash_key_warning"
+const flashKeySuccess = "flash_key_Success"
+
+// SetFlashInfo ...
+func SetFlashInfo(c *gin.Context, msg string) error {
+	return setFlash(c, msg, flashKeyInfo)
+}
+
+// GetFlashInfo ...
+func GetFlashInfo(c *gin.Context) string {
+	return getFlash(c, flashKeyInfo)
+}
+
+// SetFlashWarning ...
+func SetFlashWarning(c *gin.Context, msg string) error {
+	return setFlash(c, msg, flashKeyWarning)
+}
+
+// GetFlashWarning ...
+func GetFlashWarning(c *gin.Context) string {
+	return getFlash(c, flashKeyWarning)
+}
+
+// SetFlashError ...
+func SetFlashError(c *gin.Context, msg string) error {
+	return setFlash(c, msg, flashKeyError)
+}
+
+// GetFlashError ...
+func GetFlashError(c *gin.Context) string {
+	return getFlash(c, flashKeyError)
+}
+
+// SetFlashSuccess ...
+func SetFlashSuccess(c *gin.Context, msg string) error {
+	return setFlash(c, msg, flashKeySuccess)
+}
+
+// GetFlashSuccess ...
+func GetFlashSuccess(c *gin.Context) string {
+	return getFlash(c, flashKeySuccess)
+}
+
+func setFlash(c *gin.Context, msg, key string) error {
+	session := sessions.Default(c)
+	if msg == "" {
+		return nil
+	}
+	session.Set(key, msg)
+	session.Save()
+	return nil
+}
+
+func getFlash(c *gin.Context, key string) string {
+	session := sessions.Default(c)
+	obj := session.Get(key)
+	if msg, ok := obj.(string); ok {
+		session.Delete(key)
+		session.Save()
+		return msg
+	}
+	return ""
+}
+```
+### flash message templates
+
+prepare
+- app/views/partials/flash.tmpl
+
+### in layouts
+
+```
+{{ template "partials/flash" . }}
+```
 
 -----
 

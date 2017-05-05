@@ -8,6 +8,8 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/gin-contrib/sessions"
+
 	//"github.com/rakd/sgxinfo/app/libs/csrf"
 
 	//"github.com/justinas/nosurf"
@@ -44,10 +46,10 @@ func OutputOKDataJSON(c *gin.Context, msg string, data gin.H) {
 func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 
 	// setFlash
-	//data["flash_error"] = GetFlashError(c)
-	//data["flash_warning"] = GetFlashWarning(c)
-	//data["flash_info"] = GetFlashInfo(c)
-	//data["flash_success"] = GetFlashSuccess(c)
+	data["flash_error"] = GetFlashError(c)
+	data["flash_warning"] = GetFlashWarning(c)
+	data["flash_info"] = GetFlashInfo(c)
+	data["flash_success"] = GetFlashSuccess(c)
 	//data["csrf_token"] = nosurf.Token(c.Request)
 
 	//data["is_login"] = IsLogin(c)
@@ -87,7 +89,6 @@ func RenderHTML(c *gin.Context, data gin.H) {
 	RenderTemplate(c, tmpl, data, 200)
 }
 
-/*
 const flashKeyInfo = "flash_key_info"
 const flashKeyError = "flash_key_Error"
 const flashKeyWarning = "flash_key_warning"
@@ -153,7 +154,6 @@ func getFlash(c *gin.Context, key string) string {
 	}
 	return ""
 }
-*/
 
 /*
 // IsLogin ...
