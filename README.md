@@ -13,7 +13,7 @@ This repo has some branches. would like to keep some branches simple to explain.
 - master => active repo with all stuff.
 - [x] hello => almost pure gin with assets/glide.
 - [x] gzip
-- [ ] templates => using ezgintemplate, it's supporting switching layouts.
+- [x] templates => using ezgintemplate, it's supporting switching layouts.
 - [ ] flash => sample of flash messages with templates.
 - [ ] csrf => supporting csrf, with flash/templates.
 - [ ] oauth/admin => google oauth sample for admin pages.
@@ -162,8 +162,11 @@ you can just use `fresh`, then you can access http://localhost:3000/
 
 ## support gzip ( gzip branch )
 
+### import gzip & setting
+
 you should import `"github.com/gin-contrib/gzip"` in main.go, then,
-```
+
+```main.go
 router.Use(gzip.Gzip(gzip.DefaultCompression))
 ```
 
@@ -173,7 +176,70 @@ You can check size of http://localhost:3000/assets/css/bootstrap/4.0.0-alpha.6/c
 
 ## swithcing layouts ( templates branch )
 
+### import ezgintemplate
 
+import `"html/template"` and `"github.com/rakd/gin_sample/app/libs/ezgintemplate"`.
+
+`"github.com/rakd/gin_sample/app/libs/ezgintemplate"` is originally https://github.com/michelloworld/ez-gin-template, customized by kaz. I wanted to switch layout for AMP/Admin/regular pages.
+
+
+### prepare app/views
+
+under app/views, you should prepare some directories/templates as follwoing.
+- layouts/
+ - admin.tmpl
+ - base.tmpl
+ - amp.tmpl
+- partials
+ - nav.tmpl
+- errors
+ - 404.tmpl
+- app ( one of controllers )
+ - index.tmpl
+
+### prepare common logic for controllers and customize App controller.
+
+prepare
+- app/controllers/common.go
+and edit
+- app/controllers/app.go
+
+### prepare admin controller
+
+now, there is no authentication for admin. it's just sample to switch layout.
+
+- app/controllers/admin.go
+
+you can see
+-  http://localhost:3000/admin/ with admin layout.
+
+### prepare amp template for AppIndex
+
+- app/views/app/index_amp.tmpl
+
+then you can see AMP page on http://localhost:3000/?amp=1 
+
+My ezgintemplate regard XXX_amp.tmp as tempalte for AMP.
+
+
+### prepare errors.go and NoRoute in main.go
+
+```main.go
+router.NoRoute(controllers.NoRoute)
+```
+
+### prepare hoge/index.tmpl without controller
+
+- app/views/about/index.tmpl
+- app/views/hoge/index.tmpl
+- app/views/search/index.tmpl
+
+there are no controllers for above template. but you can see,
+- http://localhost/about
+- http://localhost/hoge
+- http://localhost/search
+
+If no template, you can see 404 error.
 
 -----
 
