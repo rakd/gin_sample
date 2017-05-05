@@ -1,0 +1,29 @@
+package: github.com/rakd/sgxinfo
+import:
+- package: github.com/gin-contrib/gzip
+  version: df8ae5915c82ca27808abca078ff8a62f6f78e5e
+- package: github.com/gin-contrib/sessions
+  version: 771220e58d9cbd3e4d65b3c38286865ca91b0619
+- package: github.com/gin-gonic/gin
+  version: ^1.1.4
+  subpackages:
+  - render
+- package: github.com/jinzhu/gorm
+  version: ^1.0.0
+  subpackages:
+  - dialects/mysql
+- package: gopkg.in/gin-gonic/gin.v1
+  version: ^1.1.4
+- package: github.com/go-sql-driver/mysql
+  version: ^1.3.0
+- package: github.com/justinas/nosurf
+  version: ^0.1.0
+- package: gopkg.in/go-playground/validator.v9
+  version: ^9.3.5
+- package: github.com/go-playground/universal-translator
+  version: ^0.16.0
+testImport:
+- package: github.com/stretchr/testify
+  version: ^1.1.4
+  subpackages:
+  - require
