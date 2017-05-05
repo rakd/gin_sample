@@ -17,14 +17,14 @@
       </li>
       {{if .is_login}}
       <li class="nav-item">
-        <a class="nav-link" href="/user/logout">Logout</a>
+        <a class="nav-link" href="/logout">Logout</a>
       </li>
       {{else}}
       <li class="nav-item {{is_active .current_uri "/user/login" }}">
-        <a class="nav-link" href="/user/login">Login</a>
+        <a class="nav-link" href="/login">Login</a>
       </li>
       <li class="nav-item {{is_active .current_uri "/user/register" }}">
-        <a class="nav-link" href="/user/register">Signup</a>
+        <a class="nav-link" href="/register">Signup</a>
       </li>
       {{end}}
       <li class="nav-item {{is_active .current_uri "/about" }}">

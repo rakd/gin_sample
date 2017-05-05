@@ -10,9 +10,7 @@ import (
 
 	"github.com/gin-contrib/sessions"
 
-	//"github.com/rakd/sgxinfo/app/libs/csrf"
-
-	//"github.com/justinas/nosurf"
+	"github.com/justinas/nosurf"
 
 	"gopkg.in/gin-gonic/gin.v1"
 )
@@ -50,7 +48,7 @@ func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 	data["flash_warning"] = GetFlashWarning(c)
 	data["flash_info"] = GetFlashInfo(c)
 	data["flash_success"] = GetFlashSuccess(c)
-	//data["csrf_token"] = nosurf.Token(c.Request)
+	data["csrf_token"] = nosurf.Token(c.Request)
 
 	//data["is_login"] = IsLogin(c)
 	data["current_uri"] = c.Request.URL.Path
