@@ -1,6 +1,10 @@
-hash: 7d958e88f929b2d3c5e950ef835901b1be7ca3449d8e677e56682161ad48fbe6
-updated: 2017-05-05T17:24:36.432908598+08:00
+hash: 8af99c27646b5e4113f6618b86c040f6ab5e1d0c8afd8e0b23af849d8f1fac22
+updated: 2017-05-05T19:11:48.935987675+08:00
 imports:
+- name: github.com/boj/redistore
+  version: 3f631e1df8711f449f7b1796f5b8b7716e4319d0
+- name: github.com/garyburd/redigo
+  version: 0d253a66e6e1349f4581d6d2b300ee434ee2da9f
 - name: github.com/gin-contrib/gzip
   version: df8ae5915c82ca27808abca078ff8a62f6f78e5e
 - name: github.com/gin-contrib/sessions
@@ -18,6 +22,12 @@ imports:
   version: 2402d76f3d41f928c7902a765dfc872356dd3aad
   subpackages:
   - proto
+- name: github.com/gorilla/context
+  version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
+- name: github.com/gorilla/securecookie
+  version: 667fe4e3466a040b780561fe9b51a83a3753eefc
+- name: github.com/gorilla/sessions
+  version: ba78acc856fe7c79891d516131b3d903cc8d9367
 - name: github.com/jinzhu/gorm
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
   subpackages:
