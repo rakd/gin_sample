@@ -347,22 +347,26 @@ prepare
 {{ template "partials/flash" . }}
 ```
 
+### flash message test
+
+access http://localhost:3000/flash, then you will be redirect to / with the message.
+
 -----
 
 
-## support csrf ( csrf branch )
+## support csrf ( 05_csrf branch )
 
 
 ----
 
 
-## support oauth for admin page ( oauth branch )
+## support oauth for admin page ( 06_oauth branch )
 
 
 
 -----
 
-## cors/JWT ( cors branch )
+## cors/JWT ( 07_cors branch )
 
 Some must want to use JWT/cors for APIs.
 
@@ -370,23 +374,23 @@ Some must want to use JWT/cors for APIs.
 ----
 
 
-## login/logout ( login branch )
+## login/logout ( 08_login branch )
 
 ----
 
-## JSON  ( json branch )
+## JSON  ( 09_json branch )
 
 
 
 ----
 
-## docker ( docker branch )
+## docker ( 10_docker branch )
 
 ---
 
-## using memcached for JSON with docker-compose ( cache branch )
+## using memcached for JSON with docker-compose ( 11_cache branch )
 
 
 ----
 
-## deply sample with CircleCI/ElasticBeanstalk (deploy branch )
+## deply sample with CircleCI/ElasticBeanstalk (12_deploy branch )
