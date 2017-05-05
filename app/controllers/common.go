@@ -9,11 +9,6 @@ import (
 	"strings"
 
 	"github.com/gin-contrib/sessions"
-
-	//"github.com/rakd/sgxinfo/app/libs/csrf"
-
-	//"github.com/justinas/nosurf"
-
 	"gopkg.in/gin-gonic/gin.v1"
 )
 
