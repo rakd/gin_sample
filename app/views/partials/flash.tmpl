@@ -1,0 +1,25 @@
+{{define "partials/flash"}}
+  {{if .flash_success}}
+    <div class="alert alert-success">
+      {{ .flash_success}}
+    </div>
+  {{end}}
+
+  {{if .flash_info}}
+    <div class="alert alert-info">
+      {{ .flash_info}}
+    </div>
+  {{end}}
+
+  {{if .flash_warning}}
+    <div class="alert alert-warning">
+      {{ .flash_warning}}
+    </div>
+  {{end}}
+
+  {{if .flash_error}}
+    <div class="alert alert-danger">
+      {{ .flash_error}}
+    </div>
+  {{end}}
+{{end}}

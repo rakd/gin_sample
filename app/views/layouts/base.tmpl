@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" href="/assets/favicon.ico">
+
+    {{if .head_title}}
+      <title>{{ .head_title }}</title>
+    {{end}}
+    <link rel="stylesheet" href="/assets/css/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/sticky-footer-navbar.css">
+    <link href="/assets/css/dashboard.css" rel="stylesheet">
+    <link href="/assets/css/user_login.css" rel="stylesheet">
+
+    {{/*
+    <link rel="stylesheet" href="/assets/css/font-awesome/4.3.0/css/font-awesome.min.css">
+    */}}
+  </head>
+  <body>
+    {{/*
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    */}}
+    {{ template "partials/nav" . }}
+    {{/*
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {{ template "partials/navbar" . }}
+        </div>
+      </div>
+    </nav>
+    */}}
+
+    <div class="container-fluid"><div class="row" >
+      <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+      {{ template "partials/leftnav" . }}
+      {{ template "partials/flash" . }}
+      {{ template "content" . }}
+      </main>
+    </div></div>
+
+    {{ template "partials/footer" . }}
+
+
+  </body>
+
+</html>
