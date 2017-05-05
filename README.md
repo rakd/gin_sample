@@ -12,7 +12,7 @@ This repo has some branches. would like to keep some branches simple to explain.
 
 - master => active repo with all stuff.
 - [x] hello => almost pure gin with assets/glide.
-- [ ] gzip
+- [x] gzip
 - [ ] templates => using ezgintemplate, it's supporting switching layouts.
 - [ ] flash => sample of flash messages with templates.
 - [ ] csrf => supporting csrf, with flash/templates.
@@ -162,7 +162,12 @@ you can just use `fresh`, then you can access http://localhost:3000/
 
 ## support gzip ( gzip branch )
 
+you should import `"github.com/gin-contrib/gzip"` in main.go, then,
+```
+router.Use(gzip.Gzip(gzip.DefaultCompression))
+```
 
+You can check size of http://localhost:3000/assets/css/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css
 
 -----
 
