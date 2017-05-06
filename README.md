@@ -14,9 +14,9 @@ This repo has some branches. would like to keep some branches simple to explain.
 - [x] 01_hello => almost pure gin with assets/glide.
 - [x] 02_gzip
 - [x] 03_templates => using ezgintemplate, it's supporting switching layouts.
-- [ ] 04_flash => sample of flash messages with templates.
-- [ ] 05_csrf => supporting csrf, with flash/templates.
-- [ ] 06_oauth/admin => google oauth sample for admin pages.
+- [x] 04_flash => sample of flash messages with templates.
+- [x] 05_csrf => supporting csrf, with flash/templates.
+- [x] 06_oauth => google oauth sample for admin pages.
 - [ ] 07_cors => cors/JWT sample for APIs.
 - [ ] 08_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
 - [ ] 09_json => parse json data and showing.
@@ -235,9 +235,9 @@ router.NoRoute(controllers.NoRoute)
 - app/views/search/index.tmpl
 
 there are no controllers for above template. but you can see,
-- http://localhost/about
-- http://localhost/hoge
-- http://localhost/search
+- http://localhost:3000/about
+- http://localhost:3000/hoge
+- http://localhost:3000/search
 
 If no template, you can see 404 error.
 
@@ -361,6 +361,8 @@ access http://localhost:3000/flash, then you will be redirect to / with the mess
 
 
 ## support oauth for admin page ( 06_oauth branch )
+
+you need to get oauth clientID & secret on cloud.google.com, and set env in .zshrc ( or .bashrc or .profile ).
 
 
 

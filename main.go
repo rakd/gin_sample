@@ -13,6 +13,8 @@ import (
 	"github.com/gin-contrib/gzip"
 	"github.com/rakd/gin_sample/app/controllers"
 	"github.com/rakd/gin_sample/app/libs/ezgintemplate"
+	"github.com/rakd/gin_sample/app/middlewares"
+	//"gopkg.in/gin-contrib/cors.v1"
 
 	"gopkg.in/gin-gonic/gin.v1"
 )
@@ -30,7 +32,31 @@ func main() {
 	router.Static("/assets", "./assets")
 	router.StaticFile("/favicon.ico", "./assets/favicon.ico")
 	router.StaticFile("/robots.txt", "./assets/robots.txt")
+
+	router.Use(middleware.AdminGoogleAuth())
+	//router.Use(middleware.APIAuth())
 	router.Use(gin.Recovery())
+
+	/*
+		router.Use(cors.New(cors.Config{
+			AllowOrigins: []string{
+				"http://localhost:3000",
+				"http://127.0.0.1:3000",
+				"https://autolik.es",
+				"https://client.autolik.es",
+				"http://client.autolik.es",
+			},
+			AllowMethods:     []string{"PUT", "POST", "GET", "DELETE"},
+			AllowHeaders:     []string{"Origin", "Access-Control-Allow-Origin", "Accept", "Content-Type", "Authorization"},
+			ExposeHeaders:    []string{"Content-Length"},
+			AllowCredentials: true,
+			//AllowOriginFunc: func(origin string) bool {
+			//    return origin == "https://github.com"
+			//},
+			MaxAge: 12 * time.Hour,
+		}))
+	*/
+
 	// session
 	store := sessions.NewCookieStore([]byte("secret1233"))
 	router.Use(sessions.Sessions("mysession", store))
