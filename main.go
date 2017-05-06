@@ -37,14 +37,11 @@ func main() {
 	router.Use(middleware.APIAuth())
 	router.Use(gin.Recovery())
 
-	/*
+
 		router.Use(cors.New(cors.Config{
 			AllowOrigins: []string{
 				"http://localhost:3000",
 				"http://127.0.0.1:3000",
-				"https://autolik.es",
-				"https://client.autolik.es",
-				"http://client.autolik.es",
 			},
 			AllowMethods:     []string{"PUT", "POST", "GET", "DELETE"},
 			AllowHeaders:     []string{"Origin", "Access-Control-Allow-Origin", "Accept", "Content-Type", "Authorization"},
@@ -55,7 +52,7 @@ func main() {
 			//},
 			MaxAge: 12 * time.Hour,
 		}))
-	*/
+
 
 	// session
 	store := sessions.NewCookieStore([]byte("secret1233"))
