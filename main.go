@@ -34,7 +34,7 @@ func main() {
 	router.StaticFile("/robots.txt", "./assets/robots.txt")
 
 	router.Use(middleware.AdminGoogleAuth())
-	//router.Use(middleware.APIAuth())
+	router.Use(middleware.APIAuth())
 	router.Use(gin.Recovery())
 
 	/*
