@@ -1,4 +1,4 @@
-package: github.com/rakd/sgxinfo
+package: github.com/rakd/gin_sample
 import:
 - package: github.com/gin-contrib/gzip
   version: df8ae5915c82ca27808abca078ff8a62f6f78e5e
