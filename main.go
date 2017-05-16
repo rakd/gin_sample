@@ -88,6 +88,7 @@ func main() {
 
 	router.POST("/api/me", controllers.APIMe)
 	router.POST("/api/login", controllers.APILogin)
+	router.POST("/api/signup", controllers.APISignup)
 
 	//csrf := nosurf.New(router)
 	//csrf.SetFailureHandler(http.HandlerFunc(csrfFailHandler))
