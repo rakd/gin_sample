@@ -481,8 +481,10 @@ mysql.server start
 
 ### setup envs for DB on your local
 
-DB_HOST
-DB_
+- DBHOST
+- DBNAME
+- DBUSER
+- DBPASS
 
 ### prepare User model and database.
 
@@ -635,9 +637,10 @@ If you want to deploy from your local, you should set the envs on your local as 
 you need to set some environment vars
 - GOOGLE_OAUTH_CLIENT_ID
 - GOOGLE_OAUTH_CLIENT_SECRET
-- DB_HOST
-- DB_USER
-- DB_PASS
+- DBHOST
+- DBNAME
+- DBUSER
+- DBPASS
 
 
 ### circle.yml
