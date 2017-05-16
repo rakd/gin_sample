@@ -21,6 +21,7 @@ func OutputErrorJSON(c *gin.Context, msg string) {
 		"status":  "error",
 		"message": msg,
 	})
+	c.Abort()
 }
 
 // OutputOKJSON ...
@@ -29,6 +30,7 @@ func OutputOKJSON(c *gin.Context, msg string) {
 		"status":  "ok",
 		"message": msg,
 	})
+	c.Abort()
 }
 
 // OutputOKDataJSON ...
@@ -38,6 +40,7 @@ func OutputOKDataJSON(c *gin.Context, msg string, data gin.H) {
 		"message": msg,
 		"data":    data,
 	})
+	c.Abort()
 }
 
 // RenderTemplate ...
@@ -156,6 +159,12 @@ func getFlash(c *gin.Context, key string) string {
 
 // IsLogin ...
 func IsLogin(c *gin.Context) bool {
+
+	isLogin, ok := c.Get("is_login")
+	if ok && isLogin.(bool) {
+		return true
+	}
+
 	session := sessions.Default(c)
 	if flag := session.Get("is_login"); flag != nil {
 		val, ok := flag.(int)

@@ -5,6 +5,9 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"errors"
+	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/rakd/gin_sample/app/config"
+
 )
 // User ...
 type User struct {
@@ -13,9 +16,19 @@ type User struct {
 	Password string `json:"password"`
 	Token    string `json:"token"`
 	Verify   bool   `json:"verify"`
+	jwt.StandardClaims
 }
 
-
+/*
+// JWTUser ...
+type JWTUser struct {
+	ID       int64  `json:"id"`
+	Email    string `json:"email"`
+	Token    string `json:"token"`
+	Verify   bool   `json:"verify"`
+	jwt.StandardClaims
+}
+*/
 // Users ....
 type Users []*User
 
@@ -74,3 +87,34 @@ func (u *User) Login() (User, error) {
 
 	return user, err
 }
+
+
+
+// CreateJWToken ...
+func (u *User) CreateJWToken() (string, error) {
+	//token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &JWTUser{
+	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &User{
+		ID:            u.ID,
+		Email:         u.Email,
+		Verify:u.Verify,
+		Token:u.Token,
+
+	})
+	tokenString, err := token.SignedString([]byte(config.GetJWTSalt()))
+	return tokenString, err
+}
+
+
+
+
+/*
+// GetUser ...
+func (j *JWTUser) GetUser() User {
+	return User{
+		ID:            j.ID,
+		Email:         j.Email,
+		Token: j.Token,
+		Verify: j.Verify,
+	}
+}
+*/

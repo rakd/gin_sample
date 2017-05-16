@@ -18,7 +18,7 @@ This repo has some branches. would like to keep some branches simple to explain.
 - [x] 05_csrf => supporting csrf, with flash/templates.
 - [ ] 06_oauth => google oauth sample for admin pages.
 - [x] 07_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
-- [ ] 08_cors => cors/JWT sample for APIs.
+- [x] 08_cors => cors/JWT sample for APIs.
 - [ ] 09_json => parse json data and showing.
 - [ ] 10_docker => docker sample with alpine.
 - [ ] 11_cache => using memcached for json. it's including docker-compose sample and json/Unmarshall.
@@ -525,6 +525,11 @@ you can try to login on http://localhost:3000/login
 
 Some must want to use JWT/cors for APIs.
 
+
+### setup envs on your local
+
+- JWT_SALT
+
 ### main.go
 
 ### API Auth middleware.
@@ -542,11 +547,28 @@ You might want to add more exceptions, please try to add some if you want.
 
 ### try to login and access via APIs.
 
-http://localhost:3000/api/login
 
-http://localhost:3000/api/me
+#### localhost:3000/api/csrf
 
+
+#### http://localhost:3000/api/login
+
+```
+curl -X POST -v -d "{\"email\": \"rakd0930@gmail.com\", \"password\":\"rakdrakd\"}"  localhost:3000/api/login
+```
+
+```
+{"data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYWtkMDkzMEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsInRva2VuIjoiMjAzZmIzZTY5MzFkNGNkOWE3NjMxM2U0ZjAzNWExYzYiLCJ2ZXJpZnkiOmZhbHNlfQ.x0KMAdiumaL8T3V8b6s_ZM8EEaxHtLo0H53VKBJ50ig"},"message":"login ok","status":"ok"}
+```
+
+#### http://localhost:3000/api/me
+
+
+```
+curl -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYWtkMDkzMEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsInRva2VuIjoiMjAzZmIzZTY5MzFkNGNkOWE3NjMxM2U0ZjAzNWExYzYiLCJ2ZXJpZnkiOmZhbHNlfQ.x0KMAdiumaL8T3V8b6s_ZM8EEaxHtLo0H53VKBJ50ig" localhost:3000/api/v1/me
+```
 ----
+
 
 ## JSON  ( 09_json branch )
 

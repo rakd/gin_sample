@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/justinas/nosurf"
 
@@ -15,7 +16,7 @@ import (
 	"github.com/rakd/gin_sample/app/controllers"
 	"github.com/rakd/gin_sample/app/libs/ezgintemplate"
 	_ "github.com/rakd/gin_sample/app/models"
-	//"gopkg.in/gin-contrib/cors.v1"
+	"gopkg.in/gin-contrib/cors.v1"
 
 	"gopkg.in/gin-gonic/gin.v1"
 )
@@ -38,22 +39,20 @@ func main() {
 	//router.Use(middleware.APIAuth())
 	router.Use(gin.Recovery())
 
-	/*
-		router.Use(cors.New(cors.Config{
-			AllowOrigins: []string{
-				"http://localhost:3000",
-				"http://127.0.0.1:3000",
-			},
-			AllowMethods:     []string{"PUT", "POST", "GET", "DELETE"},
-			AllowHeaders:     []string{"Origin", "Access-Control-Allow-Origin", "Accept", "Content-Type", "Authorization"},
-			ExposeHeaders:    []string{"Content-Length"},
-			AllowCredentials: true,
-			//AllowOriginFunc: func(origin string) bool {
-			//    return origin == "https://github.com"
-			//},
-			MaxAge: 12 * time.Hour,
-		}))
-	*/
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{
+			"http://localhost:3000",
+			"http://127.0.0.1:3000",
+		},
+		AllowMethods:     []string{"PUT", "POST", "GET", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Access-Control-Allow-Origin", "Accept", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		//AllowOriginFunc: func(origin string) bool {
+		//    return origin == "https://github.com"
+		//},
+		MaxAge: 12 * time.Hour,
+	}))
 
 	// session
 	store := sessions.NewCookieStore([]byte("secret1233"))
@@ -79,7 +78,6 @@ func main() {
 
 	router.GET("/", controllers.AppIndex)
 	router.GET("/flash", controllers.FlashIndex)
-
 	router.GET("/logout", controllers.Logout)
 	router.GET("/login", controllers.LoginIndex)
 	router.POST("/login", controllers.LoginIndexPost)
@@ -87,13 +85,16 @@ func main() {
 	router.POST("/signup", controllers.SignupIndexPost)
 	router.NoRoute(controllers.NoRoute)
 
-	csrf := nosurf.New(router)
-	csrf.SetFailureHandler(http.HandlerFunc(csrfFailHandler))
+	router.POST("/api/me", controllers.APIMe)
+	router.POST("/api/login", controllers.APILogin)
 
-	http.ListenAndServe(":3000", csrf)
+	//csrf := nosurf.New(router)
+	//csrf.SetFailureHandler(http.HandlerFunc(csrfFailHandler))
+	//
+	//http.ListenAndServe(":3000", csrf)
 	//CSRF := csrf.Protect([]byte("32-byte-long-auth-key"))
 	//http.ListenAndServe(":3000", CSRF)
-	//router.Run(":3000")
+	router.Run(":3000")
 }
 
 func csrfFailHandler(w http.ResponseWriter, r *http.Request) {
