@@ -1,10 +1,8 @@
-hash: 348f80ca5137b4faee0c7e8ffbe948b5fbe32cc2ab97b76dc855d250bfc29e11
-updated: 2017-05-06T22:30:56.301455367+08:00
+hash: 62afeab000c89c036586ef5c8ee4da599136a92ec4efdfe8dfd0310b657c7a59
+updated: 2017-05-16T14:31:21.601314081+08:00
 imports:
 - name: github.com/boj/redistore
   version: 3f631e1df8711f449f7b1796f5b8b7716e4319d0
-- name: github.com/dgrijalva/jwt-go
-  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
 - name: github.com/garyburd/redigo
   version: 0d253a66e6e1349f4581d6d2b300ee434ee2da9f
   subpackages:
@@ -37,6 +35,8 @@ imports:
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
   subpackages:
   - dialects/mysql
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/justinas/nosurf
   version: 7245927c2cec58a9ae6a33179cc7c76363fbb88f
 - name: github.com/manucorporat/sse
