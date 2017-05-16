@@ -558,9 +558,6 @@ You might want to add more exceptions, please try to add some if you want.
 ### try to login and access via APIs.
 
 
-#### localhost:3000/api/csrf
-
-
 
 
 #### http://localhost:3000/api/signup
@@ -701,9 +698,10 @@ If you want to deploy from your local, you should set the envs on your local as 
 you need to set some environment vars
 - GOOGLE_OAUTH_CLIENT_ID
 - GOOGLE_OAUTH_CLIENT_SECRET
-- DB_HOST
-- DB_USER
-- DB_PASS
+- DBHOST
+- DBNAME
+- DBUSER
+- DBPASS
 
 
 ### circle.yml
