@@ -34,10 +34,10 @@ func main() {
 	router.StaticFile("/robots.txt", "./assets/robots.txt")
 
 	router.Use(middleware.AdminGoogleAuth())
-	router.Use(middleware.APIAuth())
+	//router.Use(middleware.APIAuth())
 	router.Use(gin.Recovery())
 
-
+	/*
 		router.Use(cors.New(cors.Config{
 			AllowOrigins: []string{
 				"http://localhost:3000",
@@ -52,7 +52,7 @@ func main() {
 			//},
 			MaxAge: 12 * time.Hour,
 		}))
-
+	*/
 
 	// session
 	store := sessions.NewCookieStore([]byte("secret1233"))
