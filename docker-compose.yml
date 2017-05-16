@@ -7,7 +7,7 @@
     ports:
       - 6379:6379
   ginsamplemysql:
-    image: mysql:latest
+    image: mysql:5.7
     dns: ["8.8.8.8"]
     container_name: ginsamplemysql
     ports:

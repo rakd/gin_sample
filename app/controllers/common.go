@@ -21,7 +21,7 @@ func OutputErrorJSON(c *gin.Context, msg string) {
 		"status":  "error",
 		"message": msg,
 	})
-	c.Abort()
+	//c.Abort()
 }
 
 // OutputOKJSON ...
@@ -30,7 +30,7 @@ func OutputOKJSON(c *gin.Context, msg string) {
 		"status":  "ok",
 		"message": msg,
 	})
-	c.Abort()
+	//c.Abort()
 }
 
 // OutputOKDataJSON ...
@@ -40,7 +40,7 @@ func OutputOKDataJSON(c *gin.Context, msg string, data gin.H) {
 		"message": msg,
 		"data":    data,
 	})
-	c.Abort()
+	//c.Abort()
 }
 
 // RenderTemplate ...
@@ -195,7 +195,7 @@ func ClearAuth(c *gin.Context) {
 func Redirect(c *gin.Context, url string) {
 
 	c.Redirect(302, url)
-	c.Abort()
+	//c.Abort()
 }
 
 var tmplCamel = regexp.MustCompile("(^[^A-Z]*|[A-Z]*)([A-Z][^A-Z]+|$)")

@@ -561,6 +561,18 @@ You might want to add more exceptions, please try to add some if you want.
 #### localhost:3000/api/csrf
 
 
+
+
+#### http://localhost:3000/api/signup
+
+```
+curl -X POST -v -d "{\"email\": \"rakd0930@gmail.com\", \"password\":\"rakdrakd\"}"  localhost:3000/api/signup
+```
+
+```
+{"message":"signup ok, please login","status":"ok"}
+
+```
 #### http://localhost:3000/api/login
 
 ```
@@ -570,6 +582,7 @@ curl -X POST -v -d "{\"email\": \"rakd0930@gmail.com\", \"password\":\"rakdrakd\
 ```
 {"data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYWtkMDkzMEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsInRva2VuIjoiMjAzZmIzZTY5MzFkNGNkOWE3NjMxM2U0ZjAzNWExYzYiLCJ2ZXJpZnkiOmZhbHNlfQ.x0KMAdiumaL8T3V8b6s_ZM8EEaxHtLo0H53VKBJ50ig"},"message":"login ok","status":"ok"}
 ```
+
 
 #### http://localhost:3000/api/me
 

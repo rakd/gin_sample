@@ -12,4 +12,5 @@ func APIMe(c *gin.Context) {
 
 	msg := "ok"
 	OutputOKJSON(c, msg)
+	return
 }

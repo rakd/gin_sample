@@ -62,7 +62,7 @@ func GoogleLogin(c *gin.Context) {
 	googleOAuthConf.RedirectURL = redierctURL
 	url := googleOAuthConf.AuthCodeURL(state)
 	c.Redirect(302, url)
-	c.Abort()
+	//c.Abort()
 	return
 }
 
