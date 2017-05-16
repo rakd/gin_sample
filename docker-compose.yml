@@ -1,0 +1,35 @@
+#version: '2'
+#services:
+  ginsampleredis:
+    image: redis:latest
+    dns: ["8.8.8.8"]
+    container_name: ginsampleredis
+    ports:
+      - 6379:6379
+  ginsamplemysql:
+    image: mysql:latest
+    dns: ["8.8.8.8"]
+    container_name: ginsamplemysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=ginsample
+  web:
+    build: .
+    container_name: gin-sample
+    dns: ["8.8.8.8"]
+    links:
+      - ginsampleredis
+      - ginsamplemysql
+    ports:
+      - 80:3000
+    environment:
+      DB_SALT: asdfasdf
+      DBHOST: ginsamplemysql
+      DBNAME: ginsample
+      DBUSER: root
+      DBPORT: 3306
+      REDIS_HOST: ginsampleredis
+      REDIS_PORT: 6379
