@@ -16,9 +16,9 @@ This repo has some branches. would like to keep some branches simple to explain.
 - [x] 03_templates => using ezgintemplate, it's supporting switching layouts.
 - [x] 04_flash => sample of flash messages with templates.
 - [x] 05_csrf => supporting csrf, with flash/templates.
-- [x] 06_oauth => google oauth sample for admin pages.
-- [ ] 07_cors => cors/JWT sample for APIs.
-- [ ] 08_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
+- [ ] 06_oauth => google oauth sample for admin pages.
+- [x] 07_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
+- [ ] 08_cors => cors/JWT sample for APIs.
 - [ ] 09_json => parse json data and showing.
 - [ ] 10_docker => docker sample with alpine.
 - [ ] 11_cache => using memcached for json. it's including docker-compose sample and json/Unmarshall.
@@ -60,9 +60,19 @@ etcetc..
 
 This mean, if you want to use specific versions of libraries, you can put the libraries under vender dir.
 
-But I think it's not enough to manage versions. I strongly recommend to use some managers, like glide.
+But I think it's not enough to manage versions. I strongly recommend you to use some managers, like glide.
 
-you should install glide firstly.
+you should install glide firstly. You can install by  
+```
+curl https://glide.sh/get | sh
+```
+OR
+```
+brew install glide
+```
+
+Please check the official repo of glide. ref: https://github.com/Masterminds/glide
+
 
 All branches have glide.yaml, so you might need to do
 ```
@@ -106,6 +116,10 @@ To install fresh, you can do
 ```
 go get github.com/pilu/fresh
 ```
+
+### install mysql
+
+### install docker
 
 
 
@@ -356,27 +370,181 @@ access http://localhost:3000/flash, then you will be redirect to / with the mess
 
 ## support csrf ( 05_csrf branch )
 
+### main.go
+
+add import like this.
+```
+import "github.com/justinas/nosurf"
+```
+
+and add this.
+```
+func csrfFailHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "%s\n", nosurf.Reason(r))
+}
+```
+
+then, Replace `router.Run(":3000")` to
+```
+csrf := nosurf.New(router)
+csrf.SetFailureHandler(http.HandlerFunc(csrfFailHandler))
+http.ListenAndServe(":3000", csrf)
+```
+
+### app/controllers/common.go
+
+in common.go, you should add import,
+```
+import 	"github.com/justinas/nosurf"
+```
+
+and add below in `RenderTemplate`,
+```
+data["csrf_token"] = nosurf.Token(c.Request)
+```
+
+### all POST forms in templates
+
+```
+{{if .csrf_token}}<input type="hidden" name="csrf_token" value="{{.csrf_token}}" />{{end}}
+```
+
+### prepare login controllers/views
+
+I've prepared login controllers and views, you can try to acccess/POST on http://localhost:3000/login
+
 
 ----
 
 
 ## support oauth for admin page ( 06_oauth branch )
 
-you need to get oauth clientID & secret on cloud.google.com, and set env in .zshrc ( or .bashrc or .profile ).
+### set oauth client ID and Secret
+
+You need to get OAUTH clientID & secret on console.cloud.google.com, and set env in .zshrc ( or .bashrc or .profile ).
+After access above URL, you can create projects. `API Manager => Credentials => Create Credentials => Oauth Client ID => Web Application` helps you to create client ID and secret.
+
+On the setting, you should add callback URls as `Authorized redirect URIs`. Please add `http://localhost:3000/auth/google/callback` for test.
+
+
+```.zshrc
+export GOOGLE_OAUTH_CLIENT_ID="YOUR_CLIENT_ID"
+export GOOGLE_OAUTH_CLIENT_SECRET="YOUR_SECRET_ID"
+```
+
+### prepare google oauth middleware
+
+When users access admin pages, we should check cookies whether it has google email address.
+If it doesn't not have it, users should be redirected to google login page.
+I've prepared the middleware in `app/middlewares/admin_google_oauth.go`.
+
+
+To use the middleware, you need to amend main.go a little.
+
+```main.go
+import "github.com/rakd/gin_sample/app/middlewares"
+```
+
+
+```main.go
+	router.Use(middleware.AdminGoogleAuth())
+```
+
+It accepts only email addresses what you write in admin_google_oauth.go, so you need to add your email address.
+
+
+### /auth/google/login, /auth/google/callback
+
+After user's login on google login page, users will be redirected to our callback page with OAUTH code.
+We should check the code on callback page.
+
+For the google login page and callback, I've prepared `app/controllers/auth_google.go`.
 
 
 
------
+### accesss admin page
 
-## cors/JWT ( 07_cors branch )
-
-Some must want to use JWT/cors for APIs.
-
+you can try to access http://localhost:3000/admin
 
 ----
 
 
-## login/logout ( 08_login branch )
+## login/logout ( 07_login branch )
+
+
+### launch mysql server on your MacOSX.
+
+If you installed mysql-server by homebrew, you can launch mysql server like this.
+```
+mysql.server start
+```
+
+### setup envs for DB on your local
+
+DB_HOST
+DB_
+
+### prepare User model and database.
+
+I've prepared `app/models/user.go` for User models.
+
+There are some libraries to access database(mysql). Actually, you might want to use simple mysql library without ORM. (https://github.com/go-sql-driver/mysql). I have no objection, I know some love it cuz simple and fast.
+But I'm using gorm as ORM. There is no big reason to use it, it's just coz my comfortable, especially for migrations.
+
+I've preapred `app/models/common.go` to connect mysql.s
+
+refs:
+- https://github.com/jinzhu/gorm
+- http://jinzhu.me/gorm/
+
+
+### main.go
+
+To use mysql specifically, you need to write below in main.go
+```
+import _ "github.com/jinzhu/gorm/dialects/mysql"
+```
+
+You may realize it's including `_` before the path. This mean the code loads init logic of the library, even though not using the library in main.go. the init logic tells you are using mysql dialect in gorm.
+
+
+### login & logout controllers
+
+### amend template
+
+To show login status, I've amended templates.
+
+### try to login.
+
+you can try to login on http://localhost:3000/login
+
+
+-----
+
+## cors/JWT ( 08_cors branch )
+
+Some must want to use JWT/cors for APIs.
+
+### main.go
+
+### API Auth middleware.
+
+You need to check JWT when users access APIs. there are some exceptions, for example, it's login.
+Before login, users should not need JWT. `app/middleware/api_auth.go` which I've prepared doesn't check `/api/login`.
+
+You might want to add more exceptions, please try to add some if you want.
+
+### controllers for POST:/api/login and POST:/api/me
+
+`app/controllers/api_login.go` checks authentication as POST (JSON format), it returns JWT when the credential is correct.
+
+`app/controllers/api_me.go` checks JWT to show user information.
+
+### try to login and access via APIs.
+
+http://localhost:3000/api/login
+
+http://localhost:3000/api/me
 
 ----
 
@@ -388,11 +556,95 @@ Some must want to use JWT/cors for APIs.
 
 ## docker ( 10_docker branch )
 
+
+### Dockerfile
+
+We are using alpine linux, it's small and simple. You will be able to understand the size is very comfortable when deploying.
+
+- ref: https://alpinelinux.org/
+
+With the Dockerfile, you can build image as follows.
+
+```
+docker build
+```
+
+### prepare Makefile
+
+Go supports cross-compile, this mean you can make linux binary on MacOS.
+
+```
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags netgo -a -v -o main *.go
+```
+
+It's pain in the neck to type every time you want to make it, so I'm using Makefile. We can use it for docker build as well.
+
+With Makefile, you can build linux binary as follow.
+```
+make go
+```
+
+For docker image, like this.
+```
+make docker
+```
+
+
+### check docker image after the docker build
+
+
+you can check the image,
+```
+docker images
+```
+
 ---
 
-## using memcached for JSON with docker-compose ( 11_cache branch )
+## using cache, for JSON with docker-compose ( 11_cache branch )
+
+
 
 
 ----
 
-## deply sample with CircleCI/ElasticBeanstalk (12_deploy branch )
+## deploy sample with CircleCI/ElasticBeanstalk (12_deploy branch )
+
+### IAM for deployment
+
+
+### create docker repos on AWS. for your docker images.
+
+
+### setup env vars on CircleCI ( and on your local )
+
+
+You need to set the environment vars on CircleCI.
+
+If you want to deploy from your local, you should set the envs on your local as well.
+
+### setup VPC
+
+### setup RDS
+
+### setup ElasticBeanstalk
+
+#### multi containers? single container?
+
+#### envs on ElasticBeanstalk
+
+you need to set some environment vars
+- GOOGLE_OAUTH_CLIENT_ID
+- GOOGLE_OAUTH_CLIENT_SECRET
+- DB_HOST
+- DB_USER
+- DB_PASS
+
+
+### circle.yml
+
+circle.yml
+
+### Dockerrun.json.template
+
+
+### scripts/deploy.sh

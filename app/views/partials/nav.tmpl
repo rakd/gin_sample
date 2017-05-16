@@ -20,11 +20,11 @@
         <a class="nav-link" href="/logout">Logout</a>
       </li>
       {{else}}
-      <li class="nav-item {{is_active .current_uri "/user/login" }}">
+      <li class="nav-item {{is_active .current_uri "/login" }}">
         <a class="nav-link" href="/login">Login</a>
       </li>
-      <li class="nav-item {{is_active .current_uri "/user/register" }}">
-        <a class="nav-link" href="/register">Signup</a>
+      <li class="nav-item {{is_active .current_uri "/signup" }}">
+        <a class="nav-link" href="/signup">Signup</a>
       </li>
       {{end}}
       <li class="nav-item {{is_active .current_uri "/about" }}">

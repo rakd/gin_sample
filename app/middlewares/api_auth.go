@@ -1,17 +1,9 @@
 package middleware
 
-import (
-	"log"
-	"strings"
+//"github.com/rakd/gin_sample/app/models"
+//"github.com/gin-gonic/gin"
 
-	jwt "github.com/dgrijalva/jwt-go"
-	//"github.com/rakd/gin_sample/app/config"
-	"github.com/rakd/gin_sample/app/controllers"
-	//"github.com/rakd/gin_sample/app/models"
-	//"github.com/gin-gonic/gin"
-	"gopkg.in/gin-gonic/gin.v1"
-)
-
+/*
 // APIAuth ...
 func APIAuth() gin.HandlerFunc {
 	loginNotRequiredPaths := map[string]bool{
@@ -19,14 +11,14 @@ func APIAuth() gin.HandlerFunc {
 		"/api/signup": true,
 		"/api/login":  true,
 	}
-	/*
-		loginNotRequiredPathPrefixes := map[string]bool{
-			"/api/v1/verify":         true,
-			"/api/v1/forgetpw":       true,
-			"/api/v1/resetpw":        true,
-			"/api/v1/request/grant/": true,
-		}
-	*/
+
+	//	loginNotRequiredPathPrefixes := map[string]bool{
+	//		"/api/v1/verify":         true,
+	//		"/api/v1/forgetpw":       true,
+	//		"/api/v1/resetpw":        true,
+	//		"/api/v1/request/grant/": true,
+	//	}
+
 
 	return func(c *gin.Context) {
 		if loginNotRequiredPaths[c.Request.URL.Path] {
@@ -38,16 +30,16 @@ func APIAuth() gin.HandlerFunc {
 			return
 		}
 
-		/*
-			for path, b := range loginNotRequiredPathPrefixes {
-				if b {
-					if strings.HasPrefix(c.Request.URL.Path, path) {
-						c.Next()
-						return
-					}
-				}
-			}
-		*/
+
+		//	for path, b := range loginNotRequiredPathPrefixes {
+		//		if b {
+		//			if strings.HasPrefix(c.Request.URL.Path, path) {
+		//				c.Next()
+		//				return
+		//			}
+		//		}
+		//	}
+
 
 		tokenString := strings.Replace(c.Request.Header.Get("Authorization"), "Bearer ", "", 1)
 		if len(tokenString) == 0 {
@@ -86,3 +78,4 @@ func APIAuth() gin.HandlerFunc {
 	}
 
 }
+*/

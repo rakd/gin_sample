@@ -50,7 +50,8 @@ func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 	data["flash_success"] = GetFlashSuccess(c)
 	data["csrf_token"] = nosurf.Token(c.Request)
 
-	//data["is_login"] = IsLogin(c)
+	data["is_login"] = IsLogin(c)
+	log.Printf("is_login:%v", data["is_login"])
 	data["current_uri"] = c.Request.URL.Path
 
 	c.HTML(statusCode, tmpl, data)
@@ -153,7 +154,6 @@ func getFlash(c *gin.Context, key string) string {
 	return ""
 }
 
-/*
 // IsLogin ...
 func IsLogin(c *gin.Context) bool {
 	session := sessions.Default(c)
@@ -165,13 +165,11 @@ func IsLogin(c *gin.Context) bool {
 	}
 	return false
 }
-*/
 
-/*
 // SetAuth ...
-func SetAuth(c *gin.Context ) {
+func SetAuth(c *gin.Context, email string) {
 	session := sessions.Default(c)
-	//session.Set("email", email)
+	session.Set("email", email)
 	session.Set("is_login", 1)
 	session.Save()
 }
@@ -179,11 +177,10 @@ func SetAuth(c *gin.Context ) {
 // ClearAuth ...
 func ClearAuth(c *gin.Context) {
 	session := sessions.Default(c)
-	session.Delete("auth")
+	session.Delete("email")
 	session.Delete("is_login")
 	session.Save()
 }
-*/
 
 // Redirect ...
 func Redirect(c *gin.Context, url string) {

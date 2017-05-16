@@ -9,11 +9,12 @@ import (
 	"github.com/justinas/nosurf"
 
 	"github.com/gin-contrib/sessions"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 
 	"github.com/gin-contrib/gzip"
 	"github.com/rakd/gin_sample/app/controllers"
 	"github.com/rakd/gin_sample/app/libs/ezgintemplate"
-	"github.com/rakd/gin_sample/app/middlewares"
+	_ "github.com/rakd/gin_sample/app/models"
 	//"gopkg.in/gin-contrib/cors.v1"
 
 	"gopkg.in/gin-gonic/gin.v1"
@@ -33,7 +34,7 @@ func main() {
 	router.StaticFile("/favicon.ico", "./assets/favicon.ico")
 	router.StaticFile("/robots.txt", "./assets/robots.txt")
 
-	router.Use(middleware.AdminGoogleAuth())
+	//router.Use(middleware.AdminGoogleAuth())
 	//router.Use(middleware.APIAuth())
 	router.Use(gin.Recovery())
 
@@ -79,8 +80,11 @@ func main() {
 	router.GET("/", controllers.AppIndex)
 	router.GET("/flash", controllers.FlashIndex)
 
+	router.GET("/logout", controllers.Logout)
 	router.GET("/login", controllers.LoginIndex)
 	router.POST("/login", controllers.LoginIndexPost)
+	router.GET("/signup", controllers.SignupIndex)
+	router.POST("/signup", controllers.SignupIndexPost)
 	router.NoRoute(controllers.NoRoute)
 
 	csrf := nosurf.New(router)
