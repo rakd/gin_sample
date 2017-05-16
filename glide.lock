@@ -1,8 +1,10 @@
-hash: 62afeab000c89c036586ef5c8ee4da599136a92ec4efdfe8dfd0310b657c7a59
-updated: 2017-05-16T14:02:28.39312602+08:00
+hash: c105e48a145a0153c480fd433b987e179b798fc1bd581635a8f11ec7fdb5aaa3
+updated: 2017-05-16T14:50:54.198448095+08:00
 imports:
 - name: github.com/boj/redistore
   version: 3f631e1df8711f449f7b1796f5b8b7716e4319d0
+- name: github.com/dgrijalva/jwt-go
+  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
 - name: github.com/garyburd/redigo
   version: 0d253a66e6e1349f4581d6d2b300ee434ee2da9f
   subpackages:
@@ -75,6 +77,8 @@ imports:
   - internal/remote_api
   - internal/urlfetch
   - urlfetch
+- name: gopkg.in/gin-contrib/cors.v1
+  version: bec00ec82559b4f4905818c2bbd7441dd64277af
 - name: gopkg.in/gin-gonic/gin.v1
   version: e2212d40c62a98b388a5eb48ecbdcf88534688ba
 - name: gopkg.in/go-playground/validator.v8
@@ -84,7 +88,16 @@ imports:
 - name: gopkg.in/yaml.v2
   version: a3f3340b5840cee44f372bddb5880fcbc419b46a
 testImports:
+- name: github.com/davecgh/go-spew
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  subpackages:
+  - spew
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - difflib
 - name: github.com/stretchr/testify
   version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
   subpackages:
+  - assert
   - require
