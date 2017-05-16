@@ -187,9 +187,7 @@ func ClearAuth(c *gin.Context) {
 
 // Redirect ...
 func Redirect(c *gin.Context, url string) {
-
 	c.Redirect(302, url)
-	c.Abort()
 }
 
 var tmplCamel = regexp.MustCompile("(^[^A-Z]*|[A-Z]*)([A-Z][^A-Z]+|$)")
