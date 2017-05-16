@@ -8,9 +8,9 @@ import (
 	"runtime"
 	"strings"
 
-	//"github.com/rakd/sgxinfo/app/libs/csrf"
+	"github.com/gin-contrib/sessions"
 
-	//"github.com/justinas/nosurf"
+	"github.com/justinas/nosurf"
 
 	"gopkg.in/gin-gonic/gin.v1"
 )
@@ -21,6 +21,7 @@ func OutputErrorJSON(c *gin.Context, msg string) {
 		"status":  "error",
 		"message": msg,
 	})
+	c.Abort()
 }
 
 // OutputOKJSON ...
@@ -29,6 +30,7 @@ func OutputOKJSON(c *gin.Context, msg string) {
 		"status":  "ok",
 		"message": msg,
 	})
+	c.Abort()
 }
 
 // OutputOKDataJSON ...
@@ -38,19 +40,21 @@ func OutputOKDataJSON(c *gin.Context, msg string, data gin.H) {
 		"message": msg,
 		"data":    data,
 	})
+	c.Abort()
 }
 
 // RenderTemplate ...
 func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 
 	// setFlash
-	//data["flash_error"] = GetFlashError(c)
-	//data["flash_warning"] = GetFlashWarning(c)
-	//data["flash_info"] = GetFlashInfo(c)
-	//data["flash_success"] = GetFlashSuccess(c)
-	//data["csrf_token"] = nosurf.Token(c.Request)
+	data["flash_error"] = GetFlashError(c)
+	data["flash_warning"] = GetFlashWarning(c)
+	data["flash_info"] = GetFlashInfo(c)
+	data["flash_success"] = GetFlashSuccess(c)
+	data["csrf_token"] = nosurf.Token(c.Request)
 
-	//data["is_login"] = IsLogin(c)
+	data["is_login"] = IsLogin(c)
+	log.Printf("is_login:%v", data["is_login"])
 	data["current_uri"] = c.Request.URL.Path
 
 	c.HTML(statusCode, tmpl, data)
@@ -87,7 +91,6 @@ func RenderHTML(c *gin.Context, data gin.H) {
 	RenderTemplate(c, tmpl, data, 200)
 }
 
-/*
 const flashKeyInfo = "flash_key_info"
 const flashKeyError = "flash_key_Error"
 const flashKeyWarning = "flash_key_warning"
@@ -153,11 +156,15 @@ func getFlash(c *gin.Context, key string) string {
 	}
 	return ""
 }
-*/
 
-/*
 // IsLogin ...
 func IsLogin(c *gin.Context) bool {
+
+	isLogin, ok := c.Get("is_login")
+	if ok && isLogin.(bool) {
+		return true
+	}
+
 	session := sessions.Default(c)
 	if flag := session.Get("is_login"); flag != nil {
 		val, ok := flag.(int)
@@ -167,13 +174,11 @@ func IsLogin(c *gin.Context) bool {
 	}
 	return false
 }
-*/
 
-/*
 // SetAuth ...
-func SetAuth(c *gin.Context ) {
+func SetAuth(c *gin.Context, email string) {
 	session := sessions.Default(c)
-	//session.Set("email", email)
+	session.Set("email", email)
 	session.Set("is_login", 1)
 	session.Save()
 }
@@ -181,11 +186,10 @@ func SetAuth(c *gin.Context ) {
 // ClearAuth ...
 func ClearAuth(c *gin.Context) {
 	session := sessions.Default(c)
-	session.Delete("auth")
+	session.Delete("email")
 	session.Delete("is_login")
 	session.Save()
 }
-*/
 
 // Redirect ...
 func Redirect(c *gin.Context, url string) {

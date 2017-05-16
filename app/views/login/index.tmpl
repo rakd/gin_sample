@@ -1,0 +1,19 @@
+
+{{define "content"}}
+  <h1>Login</h1>
+  with CSRF
+  <form action="/login" method="post">
+    {{if .csrf_token}}<input type="hidden" name="csrf_token" value="{{.csrf_token}}" />{{end}}
+    <input type="email" name="email" value="" />
+    <input type="password" name="password" value="" />
+    <input type="submit" name="submit" value="login" />
+  </form>
+  <hr />
+  without CSRF
+  <form action="/login" method="post">
+    <input type="email" name="email" value="" />
+    <input type="password" name="password" value="" />
+    <input type="submit" name="submit" value="login" />
+  </form>
+
+{{end}}

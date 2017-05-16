@@ -1,4 +1,4 @@
-package: github.com/rakd/sgxinfo
+package: github.com/rakd/gin_sample
 import:
 - package: github.com/gin-contrib/gzip
   version: df8ae5915c82ca27808abca078ff8a62f6f78e5e
@@ -22,6 +22,19 @@ import:
   version: ^9.3.5
 - package: github.com/go-playground/universal-translator
   version: ^0.16.0
+- package: gopkg.in/gin-contrib/cors.v1
+  version: bec00ec82559b4f4905818c2bbd7441dd64277af
+- package: github.com/gorilla/securecookie
+  version: ^1.1.0
+- package: github.com/satori/go.uuid
+  version: ^1.1.0
+- package: google.golang.org/api
+  subpackages:
+  - oauth2/v2
+- package: golang.org/x/oauth2
+- package: github.com/jinzhu/inflection
+- package: github.com/dgrijalva/jwt-go
+  version: ^3.0.0
 testImport:
 - package: github.com/stretchr/testify
   version: ^1.1.4
