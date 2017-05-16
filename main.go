@@ -77,6 +77,7 @@ func main() {
 	router.HTMLRender = render.Init()
 
 	router.GET("/", controllers.AppIndex)
+	router.GET("/search", controllers.SearchIndex)
 	router.GET("/flash", controllers.FlashIndex)
 	router.GET("/logout", controllers.Logout)
 	router.GET("/login", controllers.LoginIndex)
