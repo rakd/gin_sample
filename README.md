@@ -20,8 +20,8 @@ This repo has some branches. would like to keep some branches simple to explain.
 - [x] 07_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
 - [x] 08_cors => cors/JWT sample for APIs.
 - [x] 09_json => parse json data and showing.
-- [ ] 10_docker => docker sample with alpine.
-- [ ] 11_cache => using memcached for json. it's including docker-compose sample and json/Unmarshall.
+- [x] 10_docker => docker sample with alpine. and docker-compose sample. json/Unmarshall.
+- [ ] 11_cache => using memcached for json. json/Marshall.
 - [ ] 12_deploy => deply sample to ElasticBeanstalk with CircleCI.
 
 -----
@@ -119,7 +119,17 @@ go get github.com/pilu/fresh
 
 ### install mysql
 
+```
+brew install mysql
+```
+
+
+
 ### install docker
+
+please install docker.
+ref: https://docs.docker.com/docker-for-mac/install/
+
 
 
 
@@ -551,6 +561,18 @@ You might want to add more exceptions, please try to add some if you want.
 #### localhost:3000/api/csrf
 
 
+
+
+#### http://localhost:3000/api/signup
+
+```
+curl -X POST -v -d "{\"email\": \"rakd0930@gmail.com\", \"password\":\"rakdrakd\"}"  localhost:3000/api/signup
+```
+
+```
+{"message":"signup ok, please login","status":"ok"}
+
+```
 #### http://localhost:3000/api/login
 
 ```
@@ -560,6 +582,7 @@ curl -X POST -v -d "{\"email\": \"rakd0930@gmail.com\", \"password\":\"rakdrakd\
 ```
 {"data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYWtkMDkzMEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsInRva2VuIjoiMjAzZmIzZTY5MzFkNGNkOWE3NjMxM2U0ZjAzNWExYzYiLCJ2ZXJpZnkiOmZhbHNlfQ.x0KMAdiumaL8T3V8b6s_ZM8EEaxHtLo0H53VKBJ50ig"},"message":"login ok","status":"ok"}
 ```
+
 
 #### http://localhost:3000/api/me
 
@@ -611,14 +634,35 @@ For docker image, like this.
 make docker
 ```
 
+### check docker images
 
-### check docker image after the docker build
-
-
-you can check the image,
+below command enable you to check docker-images. you will be able to see docker images whcih you build.
 ```
 docker images
 ```
+
+you may see gin-sample image on the list.
+
+### run docker image
+
+you can run the docker image as follow.
+```
+docker run  -p 3000:80 gin-sample
+```
+however, the image uses mysql,,, so you will see mysql errors...
+
+To use mysql, you may setup envs for mysql or, use docker-compose.
+
+### docker-compose
+
+```
+docker-compose build
+```
+
+```
+docker-compose up
+```
+
 
 ---
 
