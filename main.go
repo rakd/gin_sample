@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"gopkg.in/gin-contrib/cors.v1"
+
 	"github.com/justinas/nosurf"
 
 	"github.com/gin-contrib/sessions"
@@ -16,7 +18,6 @@ import (
 	"github.com/rakd/gin_sample/app/controllers"
 	"github.com/rakd/gin_sample/app/libs/ezgintemplate"
 	_ "github.com/rakd/gin_sample/app/models"
-	"gopkg.in/gin-contrib/cors.v1"
 
 	"gopkg.in/gin-gonic/gin.v1"
 )
@@ -41,6 +42,7 @@ func main() {
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
+			"http://localhost",
 			"http://localhost:3000",
 			"http://127.0.0.1:3000",
 		},
@@ -88,6 +90,7 @@ func main() {
 
 	router.POST("/api/me", controllers.APIMe)
 	router.POST("/api/login", controllers.APILogin)
+	router.POST("/api/signup", controllers.APISignup)
 
 	//csrf := nosurf.New(router)
 	//csrf.SetFailureHandler(http.HandlerFunc(csrfFailHandler))

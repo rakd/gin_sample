@@ -1,7 +1,11 @@
 package controllers
 
-import "github.com/rakd/gin_sample/app/models"
-import "gopkg.in/gin-gonic/gin.v1"
+import (
+	"log"
+
+	"github.com/rakd/gin_sample/app/models"
+	"gopkg.in/gin-gonic/gin.v1"
+)
 
 //LoginIndex ...
 func LoginIndex(c *gin.Context) {
@@ -10,6 +14,7 @@ func LoginIndex(c *gin.Context) {
 
 //LoginIndexPost ...
 func LoginIndexPost(c *gin.Context) {
+	log.Print("LoginIndexPost")
 	user := models.User{}
 	user.Email = c.Request.PostFormValue("email")
 	user.Password = c.Request.PostFormValue("password")

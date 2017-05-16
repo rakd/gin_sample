@@ -24,7 +24,9 @@ func SearchIndex(c *gin.Context) {
 		}
 		log.Print(res)
 	}
-	log.Printf(res.Users[0].User.Username)
+	if len(res.Users) > 0 {
+		log.Printf(res.Users[0].User.Username)
+	}
 	RenderHTML(c, gin.H{
 		"result": res,
 	})

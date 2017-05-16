@@ -15,6 +15,7 @@ func SignupIndex(c *gin.Context) {
 
 //SignupIndexPost ...
 func SignupIndexPost(c *gin.Context) {
+	log.Print("SignupIndexPost")
 	email := c.Request.PostFormValue("email")
 	password := c.Request.PostFormValue("password")
 	log.Print(email + password)
