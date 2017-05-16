@@ -54,8 +54,7 @@ func APIAuth() gin.HandlerFunc {
 			return
 		}
 
-		//user := models.JWTUser{}
-		user := models.User{}
+		user := models.JWTUser{}
 		_, err := jwt.ParseWithClaims(tokenString, &user, func(token *jwt.Token) (interface{}, error) {
 			return []byte(config.GetJWTSalt()), nil
 		})
@@ -70,7 +69,7 @@ func APIAuth() gin.HandlerFunc {
 		}
 
 		c.Set("is_login", true)
-		c.Set("me", user)
+		c.Set("me", user.GetUser())
 		c.Next()
 	}
 

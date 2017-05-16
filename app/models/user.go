@@ -16,10 +16,9 @@ type User struct {
 	Password string `json:"password"`
 	Token    string `json:"token"`
 	Verify   bool   `json:"verify"`
-	jwt.StandardClaims
 }
 
-/*
+
 // JWTUser ...
 type JWTUser struct {
 	ID       int64  `json:"id"`
@@ -28,7 +27,7 @@ type JWTUser struct {
 	Verify   bool   `json:"verify"`
 	jwt.StandardClaims
 }
-*/
+
 // Users ....
 type Users []*User
 
@@ -93,7 +92,7 @@ func (u *User) Login() (User, error) {
 // CreateJWToken ...
 func (u *User) CreateJWToken() (string, error) {
 	//token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &JWTUser{
-	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &User{
+	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &JWTUser{
 		ID:            u.ID,
 		Email:         u.Email,
 		Verify:u.Verify,
@@ -107,7 +106,7 @@ func (u *User) CreateJWToken() (string, error) {
 
 
 
-/*
+
 // GetUser ...
 func (j *JWTUser) GetUser() User {
 	return User{
@@ -117,4 +116,3 @@ func (j *JWTUser) GetUser() User {
 		Verify: j.Verify,
 	}
 }
-*/
