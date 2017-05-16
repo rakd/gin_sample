@@ -1,3 +1,11 @@
 {{define "content"}}
   search
+
+  {{if .result}}
+  <ul>
+    {{range .result.Users}}
+      <li>{{.User.Username}}</li>
+    {{end}}
+  </ul>
+  {{end}}
 {{end}}
