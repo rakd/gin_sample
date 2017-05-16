@@ -62,7 +62,6 @@ func GoogleLogin(c *gin.Context) {
 	googleOAuthConf.RedirectURL = redierctURL
 	url := googleOAuthConf.AuthCodeURL(state)
 	c.Redirect(302, url)
-	//c.Abort()
 	return
 }
 
@@ -71,7 +70,6 @@ func GoogleCallback(c *gin.Context) {
 	log.Print("GoogleCallback")
 	if googleOAuthOK == false {
 		c.String(200, "no setup clientID or clientSecret for google auth")
-		c.Abort()
 		return
 	}
 
@@ -82,7 +80,6 @@ func GoogleCallback(c *gin.Context) {
 	log.Print(stateOrig)
 	if stateOrig == nil || stateOrig.(string) == "" {
 		c.String(200, "no session")
-		c.Abort()
 		return
 	}
 	state := stateOrig.(string)
@@ -90,7 +87,6 @@ func GoogleCallback(c *gin.Context) {
 	state2 := c.Request.URL.Query().Get("state")
 	if state != state2 {
 		c.String(200, "state is not match. state="+state+", state2="+state2)
-		c.Abort()
 		return
 	}
 
@@ -103,14 +99,12 @@ func GoogleCallback(c *gin.Context) {
 	tok, err := googleOAuthConf.Exchange(c, code)
 	if err != nil {
 		c.String(200, "Exchange error. cannot get token from code : "+err.Error())
-		c.Abort()
 		return
 	}
 
 	// check whether the token is valid
 	if tok.Valid() == false {
 		c.String(200, "token is invalid.")
-		c.Abort()
 		return
 	}
 
@@ -119,7 +113,6 @@ func GoogleCallback(c *gin.Context) {
 	service, err := v2.New(googleOAuthConf.Client(c, tok))
 	if err != nil {
 		c.String(200, err.Error())
-		c.Abort()
 		return
 	}
 
@@ -128,7 +121,6 @@ func GoogleCallback(c *gin.Context) {
 	tokenInfo, err := service.Tokeninfo().AccessToken(tok.AccessToken).Context(c).Do()
 	if err != nil {
 		c.String(200, err.Error())
-		c.Abort()
 		return
 	}
 
@@ -142,14 +134,12 @@ func GoogleCallback(c *gin.Context) {
 		if uri, ok := returnURI.(string); ok {
 			if uri != "" && strings.HasPrefix(uri, "/") {
 				c.Redirect(302, uri)
-				c.Abort()
 				return
 			}
 		}
 	}
 
 	c.Redirect(302, "/admin")
-	c.Abort()
 	return
 
 	//c.String(200, "okok")
@@ -173,7 +163,6 @@ func getCallbackURL(c *gin.Context) string {
 func GoogleLogout(c *gin.Context) {
 	if googleOAuthOK == false {
 		c.String(200, "no setup clientID or clientSecret for google auth")
-		c.Abort()
 		return
 	}
 
@@ -183,6 +172,5 @@ func GoogleLogout(c *gin.Context) {
 	session.Clear()
 	session.Save()
 	c.Redirect(302, "/")
-	c.Abort()
 	return
 }
