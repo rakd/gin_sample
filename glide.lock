@@ -1,5 +1,5 @@
-hash: 9658951b55a36628814256082b1366870d117e0d65dd5a54fac10c7427f679d6
-updated: 2017-05-06T22:46:31.399008087+08:00
+hash: 62afeab000c89c036586ef5c8ee4da599136a92ec4efdfe8dfd0310b657c7a59
+updated: 2017-05-16T14:37:06.637425007+08:00
 imports:
 - name: github.com/boj/redistore
   version: 3f631e1df8711f449f7b1796f5b8b7716e4319d0
@@ -35,6 +35,8 @@ imports:
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
   subpackages:
   - dialects/mysql
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/justinas/nosurf
   version: 7245927c2cec58a9ae6a33179cc7c76363fbb88f
 - name: github.com/manucorporat/sse
