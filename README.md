@@ -19,7 +19,7 @@ This repo has some branches. would like to keep some branches simple to explain.
 - [ ] 06_oauth => google oauth sample for admin pages.
 - [x] 07_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
 - [x] 08_cors => cors/JWT sample for APIs.
-- [ ] 09_json => parse json data and showing.
+- [x] 09_json => parse json data and showing.
 - [ ] 10_docker => docker sample with alpine.
 - [ ] 11_cache => using memcached for json. it's including docker-compose sample and json/Unmarshall.
 - [ ] 12_deploy => deply sample to ElasticBeanstalk with CircleCI.
