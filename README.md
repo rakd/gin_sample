@@ -20,8 +20,8 @@ This repo has some branches. would like to keep some branches simple to explain.
 - [x] 07_login => login/logout sample, using gorm (db library), with csrf/templates/flash.
 - [x] 08_cors => cors/JWT sample for APIs.
 - [x] 09_json => parse json data and showing.
-- [x] 10_docker => docker sample with alpine. and docker-compose sample.
-- [ ] 11_cache => using memcached for json. json/Unmarshall.
+- [x] 10_docker => docker sample with alpine. and docker-compose sample. json/Unmarshall.
+- [ ] 11_cache => using memcached for json. json/Marshall.
 - [ ] 12_deploy => deply sample to ElasticBeanstalk with CircleCI.
 
 -----
